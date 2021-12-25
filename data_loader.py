@@ -67,7 +67,7 @@ class DataLoader:
     
     base_species_map = {}
     for _, value in grouped_pokemon_info_df.groups.items():
-      base_species = pokemon_info_df.iloc[value[0]]
+      base_species = pokemon_info_df.iloc[min(value)]
       for pkm_df_id in value:
         pkm = pokemon_info_df.iloc[pkm_df_id]
         base_species_map[pkm["name"]] = base_species["name"]
