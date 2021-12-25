@@ -27,6 +27,6 @@ class EggMoveScraper:
         move_parents[move.lower()] = parents.lower()
     
     try:
-      return move_parents[egg_move]
+      return move_parents[egg_move].split(", ")
     except:
       raise Exception(f"Pokemon {pokemon} does not learn {egg_move} by breeding")
