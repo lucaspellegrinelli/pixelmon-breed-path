@@ -1,5 +1,7 @@
-from consts import VERBOSE
+class Logger:
+  verbose = True
 
-def log_current_step(text):
-  if VERBOSE:
-    print(f" * {text}")
+  @staticmethod
+  def log_current_step(text):
+    if Logger.verbose:
+      print(f" * {text}")

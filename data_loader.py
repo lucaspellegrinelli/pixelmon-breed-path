@@ -1,14 +1,14 @@
 import pandas as pd
 import os
 
-from logger import log_current_step
+from logger import Logger
 
 class DataLoader:
   def __init__(self, data_folder):
     self.data_folder = data_folder
 
   def load_all_dataframes(self):
-    log_current_step("Loading pokemon data")
+    Logger.log_current_step("Loading pokemon data")
     pokemons_df = pd.read_csv(os.path.join(self.data_folder, "pokemon.csv"))
     species_df = pd.read_csv(os.path.join(self.data_folder, "pokemon_species.csv"))
     egg_groups_df = pd.read_csv(os.path.join(self.data_folder, "pokemon_egg_groups.csv"))
@@ -28,7 +28,7 @@ class DataLoader:
 
     # Adds 'base_species_id' to species_df. This is the ID of the first evolution of an evolution chain
     base_form_id = {}
-    log_current_step("Preprocessing pokemon data")
+    Logger.log_current_step("Preprocessing pokemon data")
     for _, row in species_df.iterrows():
       if not pd.isna(row["evolves_from_species_id"]):
         if row["evolves_from_species_id"] not in base_form_id:

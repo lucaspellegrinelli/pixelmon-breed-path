@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-from logger import log_current_step
+from logger import Logger
 
 class EggMoveScraper:
   def __init__(self, pixelmon_wiki):
@@ -9,7 +9,7 @@ class EggMoveScraper:
 
   def get_available_parents(self, pokemon, egg_move):
     wiki_url = f"{self.pixelmon_wiki}/{pokemon.capitalize()}"
-    log_current_step(f"Scrapping {pokemon} egg moves from {wiki_url}")
+    Logger.log_current_step(f"Scrapping {pokemon} egg moves from {wiki_url}")
     req_res = requests.get(f"{self.pixelmon_wiki}/{pokemon.capitalize()}", headers={
       "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36",
       "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
