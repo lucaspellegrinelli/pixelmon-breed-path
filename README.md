@@ -9,7 +9,9 @@ Then you can run the following command to get the breeding path to get all of th
 ``python .\main.py -v -p Ferrothorn Toxapex Volcarona Garchomp Dragapult Bisharp -em "Ferrothorn=Leech Seed" -em "Toxapex=Haze"``
 
 ``-v`` sets verbose to true
+
 ``-p`` gets a list of pokemon that you want i.e. ``-p PokemonA PokemonB PokemonC ...``
+
 ``-em`` gets an egg move for a specific pokemon i.e. ``-em "PokemonName=MoveName"``.
 
 Sample output:
