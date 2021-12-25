@@ -43,22 +43,19 @@ class DataLoader:
     # Creates an array of objects which represents each pokemon. Each object has the pokemon id, base evolution id,
     # name, types and egg groups.
     all_pokemon_info = []
-    base_species_map = {}
     for _, row in pokemons_df.iterrows():
       species = species_df[species_df["id"] == row["species_id"]].iloc[0]
-      base_species = species_df[species_df["id"] == species["base_species_id"]].iloc[0]
       types = types_df[types_df["pokemon_id"] == row["id"]]["identifier"].to_list()
       egg_groups = egg_groups_df[egg_groups_df["species_id"] == species["id"]]["identifier"].to_list()
 
-      base_species_map[row["identifier"]] = base_species["identifier"]
       all_pokemon_info.append({
         "id": row["id"],
         "name": row["identifier"],
         "base_species_id": int(species["base_species_id"]),
         "type_1": types[0],
-        "type_2": types[1] if len(types) > 1 else "None",
+        "type_2": types[1] if len(types) > 1 else "none",
         "egg_group_1": egg_groups[0],
-        "egg_group_2": egg_groups[1] if len(egg_groups) > 1 else "None",
+        "egg_group_2": egg_groups[1] if len(egg_groups) > 1 else "none",
         "types": types,
         "egg_groups": egg_groups
       })
@@ -66,7 +63,15 @@ class DataLoader:
     # Removes evolutions that change nothing in types/egg groups so we don't end up with unnecesary nodes
     # in the final graph
     pokemon_info_df = pd.DataFrame.from_dict(all_pokemon_info)
-    pokemon_info_df = pokemon_info_df.groupby(by=["type_1", "type_2", "egg_group_1", "egg_group_2", "base_species_id"], as_index=False).first()
-    pokemon_info_df = pokemon_info_df.sort_values(by="id").reset_index(drop=True)
-    pokemon_info_df = pokemon_info_df.set_index("name")
-    return pokemon_info_df.to_dict("index"), base_species_map
+    grouped_pokemon_info_df = pokemon_info_df.groupby(by=["type_1", "type_2", "egg_group_1", "egg_group_2", "base_species_id"], as_index=False)
+    
+    base_species_map = {}
+    for _, value in grouped_pokemon_info_df.groups.items():
+      base_species = pokemon_info_df.iloc[value[0]]
+      for pkm_df_id in value:
+        pkm = pokemon_info_df.iloc[pkm_df_id]
+        base_species_map[pkm["name"]] = base_species["name"]
+
+    grouped_pokemon_info_df = grouped_pokemon_info_df.first().sort_values(by="id").reset_index(drop=True)
+    grouped_pokemon_info_df = grouped_pokemon_info_df.set_index("name")
+    return grouped_pokemon_info_df.to_dict("index"), base_species_map
