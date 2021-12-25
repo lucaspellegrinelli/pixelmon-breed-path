@@ -20,4 +20,4 @@ if __name__ == "__main__":
   plt.figure(1, figsize=(cli_args.size, cli_args.size), dpi=cli_args.dpi)
   breed_graph = BreedGraph(all_pokemon_data)
   breed_graph.draw_graph(input_pokemons)
-  plt.savefig(f"plots/breed_path.png")
+  plt.savefig(cli_args.output)

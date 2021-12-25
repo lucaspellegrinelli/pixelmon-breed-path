@@ -11,6 +11,7 @@ class CLIHandler:
     self.parser.add_argument("-v", "--verbose", action="store_true", help="Control if messages reporting the progress of the software will be shown", required=False)
     self.parser.add_argument("-s", "--size", type=int, help="Width and height of the final image in inches", default=15, required=False)
     self.parser.add_argument("-dpi", "--dpi", type=int, help="DPI of the final image in inches", default=200, required=False)
+    self.parser.add_argument("-o", "--output", help="Path for the output image", default="breed_path.png", required=False)
 
   def parse(self):
     cli_args = self.parser.parse_args()
