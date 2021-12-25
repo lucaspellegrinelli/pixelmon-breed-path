@@ -4,6 +4,7 @@ import networkx as nx
 
 from consts import *
 from list_utils import intersec, list_intersec
+from logger import log_current_step
 
 class BreedGraph:
   def __init__(self, all_pokemon_data):
@@ -27,12 +28,14 @@ class BreedGraph:
     included in the final team as well as pokemon required for egg moves. This will be used in a directed
     graph, so ordering is imoprtant
     """
+    log_current_step("Finding which pokemons will be included in the final graph")
     non_eggmove_pokemons, all_relevant_pokemons, pokemon_forced_breeds = self.get_egg_move_necessary_pokemons(input_pokemons)
 
     shortest_path_to_pokemons = {}
     shortest_path_length_to_pokemons = {}
 
     # Find all shortest paths from 'source_pkm' to 'target_pkm' and store it in 'shortest_path_to_pokemons'
+    log_current_step("Calculating path to each relevant pokemon")
     for source_pkm in all_relevant_pokemons:
       for target_pkm in non_eggmove_pokemons:
         if source_pkm == target_pkm: continue
@@ -121,6 +124,7 @@ class BreedGraph:
     self.draw_graph_from_paths(input_pokemons, paths_to_pokemons, ax=ax)
 
   def draw_graph_from_paths(self, input_pokemons, paths_to_pokemons, ax=None):
+    log_current_step("Drawing figure")
     # Gathers all included pokemons to be nodes and all connections to be edges
     all_included_pokemons = set([pkm.name for pkm in input_pokemons])
     pokemon_connections = set()
