@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-from logger import Logger
+from utils import Logger
 
 class EggMoveScraper:
   def __init__(self, pixelmon_wiki):

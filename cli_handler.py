@@ -1,7 +1,7 @@
 import argparse
 
 from input_pokemon import InputPokemon
-from logger import Logger
+from utils import Logger
 
 class CLIHandler:
   def __init__(self):

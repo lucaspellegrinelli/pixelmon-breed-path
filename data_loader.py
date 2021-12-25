@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-from logger import Logger
+from utils import Logger
 
 class DataLoader:
   def __init__(self, data_folder):

@@ -3,8 +3,7 @@ import copy
 import networkx as nx
 
 from consts import *
-from list_utils import intersec, list_intersec
-from logger import Logger
+from utils import Logger, intersec, list_intersec
 
 class BreedGraph:
   def __init__(self, all_pokemon_data):
