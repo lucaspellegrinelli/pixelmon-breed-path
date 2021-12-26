@@ -17,9 +17,10 @@ class CLIHandler:
     cli_args = self.parser.parse_args()
 
     egg_moves = {}
-    for egg_move_str in cli_args.eggmove:
-      target_pkm, target_move = egg_move_str.split("=")
-      egg_moves[target_pkm] = target_move
+    if cli_args.eggmove:
+      for egg_move_str in cli_args.eggmove:
+        target_pkm, target_move = egg_move_str.split("=")
+        egg_moves[target_pkm] = target_move
     
     input_pokemons = []
     for pokemon in cli_args.pokemons:
